@@ -1,4 +1,5 @@
-using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using PersonsApi.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<PersonContext>(opt => opt.UseInMemoryDatabase("Persons"));
+builder.Services.AddScoped<IPersonsRepository, PersonsRepository>();
 
 var app = builder.Build();
 
